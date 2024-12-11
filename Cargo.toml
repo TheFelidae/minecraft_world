@@ -1,0 +1,14 @@
+[package]
+name = "minetest_world"
+description = "A library for reading, writing, and manipulating Minetest worlds."
+license = "MIT"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+rusqlite = { version = "0.32.1", features = ["bundled"] }
+
+[features]
+# Engines that Minetest could use to store world data.
+sqlite = []
+default = ["sqlite"]
