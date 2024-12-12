@@ -1,14 +1,15 @@
 [package]
-name = "minetest_world"
-description = "A library for reading, writing, and manipulating Minetest worlds."
+name = "minecraft_world"
+description = "A library for reading, writing, abstracting and manipulating Minecraft and Luanti (aka Minetest) worlds."
 license = "MIT"
 version = "0.0.0"
 edition = "2021"
 
 [dependencies]
-rusqlite = { version = "0.32.1", features = ["bundled"] }
+rusqlite = { version = "0.32.1", features = ["bundled"], optional = true }
 
 [features]
-# Engines that Minetest could use to store world data.
-sqlite = []
-default = ["sqlite"]
+minecraft_anvil = []
+# Engines that Luanti could use to store world data.
+luanti_sqlite = []
+default = ["luanti_sqlite"]
