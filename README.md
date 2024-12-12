@@ -10,6 +10,18 @@ This crate provides a simple API to abstract and handle Minecraft worlds or Luan
 
 This crate hopefully would allow you to write custom abstraction layers, for if you want custom world data - Perhaps from a different game entirely - To work with your program.
 
+## Features
+
+### Supported World Formats
+
+- [ ] Luanti
+  - [ ] Luanti World Format 22...29
+- [ ] Java
+  - [ ] Classic
+  - [ ] Region
+  - [ ] Anvil
+- [ ] Bedrock
+
 ## License
 
 This crate is licensed under the MIT license. See the `LICENSE` file for more information.
