@@ -22,7 +22,7 @@ pub struct World {
     auth_backend: BackendType,
     mod_storage_backend: BackendType,
     mods: Vec<String>,
-    server_announce: bool
+    server_announce: bool,
 }
 
 impl World {
@@ -36,7 +36,7 @@ impl World {
             auth_backend: BackendType::Files,
             mod_storage_backend: BackendType::Files,
             mods: Vec::new(),
-            server_announce: false
+            server_announce: false,
         };
 
         /* -------------------------------------------------------------------------- */
@@ -51,17 +51,26 @@ impl World {
 
         // Parse world.mt
         let world_metadata: KeyValue = KeyValue::from(
-            std::str::from_utf8(
-                std::fs::read(file_world_mt).unwrap().as_slice()
-            ).unwrap()
+            std::str::from_utf8(std::fs::read(file_world_mt).unwrap().as_slice()).unwrap(),
         );
-        
+
         // Fill in the world metadata
-        world.game_id = world_metadata.get("gameid").unwrap_or("minetest_game".to_string());
-        world.enable_damage = world_metadata.get("enable_damage").unwrap_or("true".to_string()) == "true";
-        world.enable_creative = world_metadata.get("creative_mode").unwrap_or("false".to_string()) == "true";
-        world.server_announce = world_metadata.get("server_announce").unwrap_or("false".to_string()) == "true";
-        
+        world.game_id = world_metadata
+            .get("gameid")
+            .unwrap_or("minetest_game".to_string());
+        world.enable_damage = world_metadata
+            .get("enable_damage")
+            .unwrap_or("true".to_string())
+            == "true";
+        world.enable_creative = world_metadata
+            .get("creative_mode")
+            .unwrap_or("false".to_string())
+            == "true";
+        world.server_announce = world_metadata
+            .get("server_announce")
+            .unwrap_or("false".to_string())
+            == "true";
+
         let load_mods_mt: Vec<String> = world_metadata
             .clone()
             .filter_map(|(key, value)| {
@@ -74,39 +83,54 @@ impl World {
             .collect();
         world.mods = load_mods_mt;
 
-        world.backend = match world_metadata.get("backend").unwrap_or("files".to_string()).as_str() {
+        world.backend = match world_metadata
+            .get("backend")
+            .unwrap_or("files".to_string())
+            .as_str()
+        {
             "sqlite3" => BackendType::SQLite3,
             "leveldb" => BackendType::LevelDB,
             "redis" => BackendType::Redis,
             "postgresql" => BackendType::PostgreSQL,
-            _ => BackendType::Files
+            _ => BackendType::Files,
         };
-        world.player_backend = match world_metadata.get("player_backend").unwrap_or("files".to_string()).as_str() {
+        world.player_backend = match world_metadata
+            .get("player_backend")
+            .unwrap_or("files".to_string())
+            .as_str()
+        {
             "sqlite3" => BackendType::SQLite3,
             "leveldb" => BackendType::LevelDB,
             "redis" => BackendType::Redis,
             "postgresql" => BackendType::PostgreSQL,
-            _ => BackendType::Files
+            _ => BackendType::Files,
         };
-        world.auth_backend = match world_metadata.get("auth_backend").unwrap_or("files".to_string()).as_str() {
+        world.auth_backend = match world_metadata
+            .get("auth_backend")
+            .unwrap_or("files".to_string())
+            .as_str()
+        {
             "sqlite3" => BackendType::SQLite3,
             "leveldb" => BackendType::LevelDB,
             "redis" => BackendType::Redis,
             "postgresql" => BackendType::PostgreSQL,
-            _ => BackendType::Files
+            _ => BackendType::Files,
         };
-        world.mod_storage_backend = match world_metadata.get("mod_storage_backend").unwrap_or("files".to_string()).as_str() {
+        world.mod_storage_backend = match world_metadata
+            .get("mod_storage_backend")
+            .unwrap_or("files".to_string())
+            .as_str()
+        {
             "sqlite3" => BackendType::SQLite3,
             "leveldb" => BackendType::LevelDB,
             "redis" => BackendType::Redis,
             "postgresql" => BackendType::PostgreSQL,
-            _ => BackendType::Files
+            _ => BackendType::Files,
         };
-        
 
         Ok(world)
     }
-    
+
     /* ----------------------- Property Getters - Metadata ---------------------- */
     pub fn game_id(&self) -> &str {
         &self.game_id

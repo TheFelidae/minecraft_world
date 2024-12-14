@@ -1,4 +1,4 @@
-use std::{collections::HashMap};
+use std::collections::HashMap;
 
 // Key-Value format:
 // key=value
@@ -6,14 +6,12 @@ use std::{collections::HashMap};
 // key3 = value3 - Comment
 #[derive(Debug, Clone)]
 pub struct KeyValue {
-    data: Vec<(String, String)>
+    data: Vec<(String, String)>,
 }
 
 impl KeyValue {
     pub fn new() -> KeyValue {
-        KeyValue {
-            data: Vec::new()
-        }
+        KeyValue { data: Vec::new() }
     }
 
     pub fn from(serialized: &str) -> KeyValue {
@@ -31,14 +29,11 @@ impl KeyValue {
             if let Some(comment_start) = value.find('-') {
                 let value = &value[..comment_start].trim();
                 data.push((key.to_string(), value.to_string()));
-            }
-            else {
+            } else {
                 data.push((key.to_string(), value.to_string()));
             }
         }
-        KeyValue {
-            data
-        }
+        KeyValue { data }
     }
 
     pub fn as_str(&self) -> String {
@@ -122,16 +117,11 @@ key5 = value5 - Comment
 "#;
 
         let kv = KeyValue::from(bytes);
-        assert_eq!(kv.get("key1"), Some
-            ("value1".to_string()));
-        assert_eq!(kv.get("key2"), Some
-            ("value2".to_string()));
-        assert_eq!(kv.get("key3"), Some
-            ("value3".to_string()));
-        assert_eq!(kv.get("key4"), Some
-            ("value4".to_string()));
-        assert_eq!(kv.get("key5"), Some
-            ("value5".to_string()));
+        assert_eq!(kv.get("key1"), Some("value1".to_string()));
+        assert_eq!(kv.get("key2"), Some("value2".to_string()));
+        assert_eq!(kv.get("key3"), Some("value3".to_string()));
+        assert_eq!(kv.get("key4"), Some("value4".to_string()));
+        assert_eq!(kv.get("key5"), Some("value5".to_string()));
     }
 
     #[test]
@@ -144,10 +134,9 @@ key5 = value5 - Comment
 
         kv.insert("key1".to_string(), "value1".to_string());
 
-
         let reference_bytes = r#"key1=value1
 "#;
 
         assert_eq!(kv.as_str(), reference_bytes);
-    }        
+    }
 }
